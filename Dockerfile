@@ -5,7 +5,7 @@ COPY poetry.lock pyproject.toml /code/
 WORKDIR /code/
 
 RUN pip install --upgrade pip poetry==1.7.0 \
-    && poetry self add poetry-plugin-export \
+    && poetry self add poetry-plugin-export==1.6.0 \
     && poetry export > requirements.txt
 
 FROM python:3.11 as runtime

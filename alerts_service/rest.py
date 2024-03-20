@@ -69,7 +69,7 @@ async def update_borrower(
     :param session: SQLAlchemy ORM session injected using FastAPI dependency injection mechanism
     :return: Borrower - the full Borrower model after the update has been applied
     """
-    borrower = session.query(models.Borrower).get(borrower_id)
+    borrower = session.get(models.Borrower, borrower_id)
     borrower.name = payload.name
     borrower.total_revenue = payload.total_revenue
     borrower.ebitda = payload.ebitda
@@ -170,7 +170,7 @@ async def get_triggered_borrowers(
     :param session: SQLAlchemy ORM session injected using FastAPI dependency injection mechanism
     :return: List of Borrower objects which have triggered the Alert
     """
-    alert = session.query(models.Alert).get(alert_id)
+    alert = session.get(models.Alert, alert_id)
     if alert is None:
         raise fastapi.HTTPException(404, detail="Alert not found")
     base_query = session.query(models.Borrower)
